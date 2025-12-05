@@ -1,7 +1,4 @@
-import readline from "readline";
-import type { CLICommand } from "./command.js";
-import { commandExit } from "./command_exit.js";
-import { commandHelp } from "./command_help.js";
+import { State } from "./state.js";
 
 export function cleanInput(input: string): string[] {
   const trimmed = input.trim();
@@ -13,35 +10,16 @@ export function cleanInput(input: string): string[] {
   return [];
 }
 
-export function getCommands(): Record<string, CLICommand> {
-  return {
-    exit: {
-      name: "exit",
-      description: "Exits the pokedex",
-      callback: commandExit,
-    },
-    help: {
-      name: "help",
-      description: "Displays a help message",
-      callback: commandHelp,
-    },
-  };
-}
-
-export function startREPL() {
-  const replInterface = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    prompt: "Pokedex > ",
-  });
+export function startREPL(state: State) {
+  const replInterface = state.rl;
   replInterface.prompt();
   replInterface.on("line", (line) => { 
     const commands = cleanInput(line);
     if (commands.length > 0) {
       const command = commands[0];
-      const availableCommands = getCommands();
+      const availableCommands = state.commands;
       if (command in availableCommands) {
-        availableCommands[command].callback(availableCommands);
+        availableCommands[command].callback(state);
       } else {
         console.log(`Unknown command`);
       }

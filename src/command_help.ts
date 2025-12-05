@@ -1,7 +1,9 @@
-export function commandHelp(commands: Record<string, any>) {
+import { State } from "./state";
+
+export function commandHelp(state: State) {
   console.log("Welcome to the Pokedex!");
   console.log("Usage:\n");
-  for (const command in commands) {
-    console.log(`${command}: ${commands[command].description}`);
+  for (const command in state.commands) {
+    console.log(`${command}: ${state.commands[command].description}`);
   }
 };
