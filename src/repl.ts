@@ -13,13 +13,17 @@ export function cleanInput(input: string): string[] {
 export function startREPL(state: State) {
   const replInterface = state.rl;
   replInterface.prompt();
-  replInterface.on("line", (line) => { 
+  replInterface.on("line", async (line) => { 
     const commands = cleanInput(line);
     if (commands.length > 0) {
       const command = commands[0];
       const availableCommands = state.commands;
       if (command in availableCommands) {
-        availableCommands[command].callback(state);
+        try {
+          await availableCommands[command].callback(state);
+        } catch (error) {
+          console.log(`Error executing command`);
+        }
       } else {
         console.log(`Unknown command`);
       }
