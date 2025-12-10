@@ -86,4 +86,25 @@ export type Pokemon = {
   base_experience: number
   id: number
   name: string
+  height: number
+  weight: number
+  stats: Stat[]
+  types: Type[]
 };
+
+ interface Stat {
+  base_stat: number
+  stat: StatDetail
+}
+
+ interface StatDetail {
+  name: string
+}
+
+ interface Type {
+  type: TypeDetail
+}
+
+ interface TypeDetail {
+  name: string
+}

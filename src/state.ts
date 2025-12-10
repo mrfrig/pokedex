@@ -6,6 +6,7 @@ import { commandExplore } from "./command_explore.js";
 import { commandHelp } from "./command_help.js";
 import { commandMap, commandMapB } from "./command_map.js";
 import { PokeAPI, Pokemon } from "./pokeapi.js";
+import { commandInspect } from "./command_inspect.js";
 
   export type State = {
     rl: Interface;
@@ -53,6 +54,11 @@ export function getCommands(): Record<string, CLICommand> {
       name: "catch",
       description: "Catch a pokemon",
       callback: commandCatch,
+    },
+    inspect: {
+      name: "inspect",
+      description: "Prints the name, height, weight, stats and type(s) of a Pokemon",
+      callback: commandInspect,
     },
   };
 }
