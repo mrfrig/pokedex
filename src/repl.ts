@@ -16,13 +16,13 @@ export function startREPL(state: State) {
   replInterface.on("line", async (line) => { 
     const commands = cleanInput(line);
     if (commands.length > 0) {
-      const command = commands[0];
+      const [command, ...args] = commands;
       const availableCommands = state.commands;
       if (command in availableCommands) {
         try {
-          await availableCommands[command].callback(state);
+          await availableCommands[command].callback(state, ...args);
         } catch (error) {
-          console.log(`Error executing command`);
+          console.log(`Error executing command: ${error}`);
         }
       } else {
         console.log(`Unknown command`);
