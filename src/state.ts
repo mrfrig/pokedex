@@ -4,9 +4,10 @@ import { commandCatch } from "./command_catch.js";
 import { commandExit } from "./command_exit.js";
 import { commandExplore } from "./command_explore.js";
 import { commandHelp } from "./command_help.js";
-import { commandMap, commandMapB } from "./command_map.js";
-import { PokeAPI, Pokemon } from "./pokeapi.js";
 import { commandInspect } from "./command_inspect.js";
+import { commandMap, commandMapB } from "./command_map.js";
+import { commandPokedex } from "./command_pokedex.js";
+import { PokeAPI, Pokemon } from "./pokeapi.js";
 
   export type State = {
     rl: Interface;
@@ -59,6 +60,11 @@ export function getCommands(): Record<string, CLICommand> {
       name: "inspect",
       description: "Prints the name, height, weight, stats and type(s) of a Pokemon",
       callback: commandInspect,
+    },
+    pokedex: {
+      name: "pokedex",
+      description: "Orints a list of all the names of the Pokemon caught",
+      callback: commandPokedex,
     },
   };
 }
